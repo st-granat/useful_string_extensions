@@ -80,13 +80,13 @@ String.class_eval do
     Unicode.downcase(self).gsub(/[^a-zа-яёЁ0-9\*]/, ' ').split("[")[0].split(" ").compact.join(" ")#.strip
   end
 
-	def split_stars
-		self.sanitize_to_sphinx.split(" ").collect {|w| "*#{w}*" if w.size > 2}.join(" ")
-	end
+  def split_stars
+    self.sanitize_to_sphinx.split(" ").collect {|w| "*#{w}*" if w.size > 2}.join(" ")
+  end
 
-	def end_stars
-		self.sanitize_to_sphinx.split(" ").collect {|w| "#{w}*" if w.size > 2}.join(" ")
-	end
+  def end_stars
+    self.sanitize_to_sphinx.split(" ").collect {|w| "#{w}*" if w.size > 2}.join(" ")
+  end
 
   def path_to_a
     self.gsub(",", '').split(' ').compact
