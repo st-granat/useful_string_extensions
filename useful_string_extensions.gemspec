@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["railscode@gmail.com"]
   gem.description   = "useful_string_extensions"
   gem.summary       = "useful_string_extensions"
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/vav/useful_string_extensions.git"
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
