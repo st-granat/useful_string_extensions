@@ -1,5 +1,5 @@
 # coding: utf-8
-String.class_eval do
+class String
   def string_from_file
     data = ''
     f = File.open(self, "r")
