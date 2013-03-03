@@ -29,12 +29,20 @@ class String
     self.split("-").last
   end
 
+  def to_print
+    self.gsub("\t", '').gsub("\n", '').gsub("\r", '')
+  end
+
   def bstrip
     self.lstrip.rstrip
   end
 
   def to_widgets_array
     self.split(",").collect{|e| e.gsub("widget_",'').to_i}
+  end
+
+  def add_slash
+    self == "" ? "" : (self.ends_with?("/") ? self : "#{self}/")
   end
 
   def change_plus
@@ -76,6 +84,12 @@ class String
     self.blank? ? "" : self.gsub('*', '')
   end
 
+  def generate_secret_code(len = 7)
+    chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - ['o', 'O', 'i', 'I']
+    return Array.new(len) { chars[rand(chars.size)] }.join
+  end
+  alias_method :generate_password, :generate_secret_code
+
   def sanitize_to_sphinx
     Unicode.downcase(self).gsub(/[^a-zа-яёЁ0-9\*]/, ' ').split("[")[0].split(" ").compact.join(" ")#.strip
   end
@@ -106,5 +120,9 @@ class String
 
   def to_page_slug
     self.gsub(/^\//, '').gsub(".html", "")
+  end
+
+  def valide_of_email?
+    self =~ /(^$)|(^[a-z0-9]+([_\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\.[a-z]{2,}$)/
   end
 end
