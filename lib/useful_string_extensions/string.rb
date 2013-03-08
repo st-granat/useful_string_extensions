@@ -73,11 +73,11 @@ class String
     Russian.translit(self).downcase.gsub(/[^a-z0-9]+/, '-').strip.chomp('-')
 
     # другой вариант
-    #initial = Russian::translit(self.name).gsub(/[^A-Za-z0-9\s\-]/, "")[0,40].strip.gsub(/\s+/, "-").downcase
+    # initial = Russian::translit(self.name).gsub(/[^A-Za-z0-9\s\-]/, "")[0,40].strip.gsub(/\s+/, "-").downcase
   end
 
   def to_search
-    self.blank? ? "" : self.sanitize_to_sphinx.split_stars
+    self == "" ? "" : self.sanitize_to_sphinx.split_stars
   end
 
   def remove_stars
@@ -91,11 +91,11 @@ class String
   alias_method :generate_password, :generate_secret_code
 
   def sanitize_to_sphinx
-    Unicode.downcase(self).gsub(/[^a-zа-яёЁ0-9\*]/, ' ').split("[")[0].split(" ").compact.join(" ")#.strip
+    self == "" ? "" : Unicode.downcase(self).gsub(/[^a-zа-яёЁ0-9\*]/, ' ').split("[")[0].split(" ").compact.join(" ")
   end
 
   def split_stars
-    self.sanitize_to_sphinx.split(" ").collect {|w| "*#{w}*" if w.size > 2}.join(" ")
+    self == "" ? "" : self.split(" ").collect {|w| "*#{w}*" if w.size > 2}.join(" ")
   end
 
   def end_stars
