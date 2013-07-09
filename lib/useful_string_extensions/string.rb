@@ -73,7 +73,7 @@ class String
     Russian.translit(self).downcase.gsub(/[^a-z0-9]+/, '-').strip.chomp('-')
 
     # другой вариант
-    #initial = Russian::translit(self.name).gsub(/[^A-Za-z0-9\s\-]/, "")[0,40].strip.gsub(/\s+/, "-").downcase
+    # initial = Russian::translit(self.name).gsub(/[^A-Za-z0-9\s\-]/, "")[0,40].strip.gsub(/\s+/, "-").downcase
   end
 
   def to_search
@@ -114,10 +114,6 @@ class String
     self.blank? ? "" : self.gsub('"', "'")
   end
 
-  def is_valid_email?
-    !(self =~ CustomEmailValidator.email_regex).nil?
-  end
-
   def to_page_slug
     self.gsub(/^\//, '').gsub(".html", "")
   end
@@ -125,4 +121,26 @@ class String
   def valide_of_email?
     self =~ /(^$)|(^[a-z0-9]+([_\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\.[a-z]{2,}$)/
   end
+
+  def is_valid_email?
+    !(self =~ CustomEmailValidator.email_regex).nil?
+  end
+
+  def is_valid_phone_from_russia?
+    !(self =~ CustomPhoneValidator.russian_phone_regex).nil?
+  end
+
+  def normalize_phone
+    self == "" ? "" : self.gsub(/\D+/,'')
+  end
+
+  def to_clean
+    allowed_tags = {
+      :elements => %w[p a ul ol li u],
+      :attributes => {'a' => ['href', 'title']},
+      :protocols => {'a' => {'href' => ['http', 'https', 'mailto']}}
+    }
+    self == "" ? "" : Sanitize.clean(self, allowed_tags)
+  end
+
 end
