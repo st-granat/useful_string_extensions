@@ -126,8 +126,20 @@ class String
     !(self =~ CustomEmailValidator.email_regex).nil?
   end
 
+  def is_valid_phone?
+    !(self =~ CustomPhoneValidator.world_phone_regex).nil?
+  end
+
+  def is_valid_phone_from_sng?
+    !(self =~ CustomPhoneValidator.sng_phone_regex).nil?
+  end
+
   def is_valid_phone_from_russia?
     !(self =~ CustomPhoneValidator.russian_phone_regex).nil?
+  end
+
+  def is_valid_phone_from_ukrain?
+    !(self =~ CustomPhoneValidator.ukrainian_phone_regex).nil?
   end
 
   def normalize_phone
@@ -142,5 +154,4 @@ class String
     }
     self == "" ? "" : Sanitize.clean(self, allowed_tags)
   end
-
 end
