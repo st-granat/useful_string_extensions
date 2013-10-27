@@ -154,4 +154,12 @@ class String
     }
     self == "" ? "" : Sanitize.clean(self, allowed_tags)
   end
+  
+  def encode_from_1251_to_utf8
+    self.force_encoding("windows-1251").encode("utf-8", :invalid => :replace)
+  end
+
+  def encode_to_utf8
+    self.encode("utf-8", :invalid => :replace)
+  end
 end
