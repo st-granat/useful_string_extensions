@@ -162,4 +162,8 @@ class String
   def encode_to_utf8
     self.encode("utf-8", :invalid => :replace)
   end
+  
+  def to_production_zones
+    self.gsub("local", "ru").gsub("en", "com")
+  end
 end
