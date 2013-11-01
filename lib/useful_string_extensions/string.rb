@@ -164,6 +164,6 @@ class String
   end
   
   def to_production_zones
-    self.gsub("local", "ru").gsub("en", "com")
+    self.gsub("local", "ru").gsub("en", "com").gsub(":3000", "")
   end
 end
