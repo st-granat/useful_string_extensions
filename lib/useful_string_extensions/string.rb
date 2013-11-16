@@ -154,7 +154,7 @@ class String
     }
     self == "" ? "" : Sanitize.clean(self, allowed_tags)
   end
-  
+
   def encode_from_1251_to_utf8
     self.force_encoding("windows-1251").encode("utf-8", :invalid => :replace)
   end
@@ -162,8 +162,12 @@ class String
   def encode_to_utf8
     self.encode("utf-8", :invalid => :replace)
   end
-  
+
   def to_production_zones
     self.gsub("local", "ru").gsub("en", "com").gsub(":3000", "")
+  end
+
+  def to_cached_page(current_page)
+    self.gsub("?page=", "/page-").gsub("/page-#{current_page}", "").gsub("/page-1", "")
   end
 end
